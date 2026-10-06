@@ -3,6 +3,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
 
+    nitro: {
+        preset: 'netlify' // or 'netlify-edge' / 'netlify-static' depending on your hosting mode
+    },
+
     app: {
         head: {
             link: [
