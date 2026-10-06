@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@layer base {
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: clip;
+    }
+
+    img,
+    video,
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+    body {
+        overflow-wrap: break-word;
+    }
+}
+
+@source "../components";
+@source "../pages";
+@source "../composables";
+@source "../utils";
+/* Dynamic category colors */
+@source inline("bg-{primary,accent,secondary,error-1}/{0..100..5}");
+@source inline("bg-foreground");
+
+@source inline("text-{primary,accent,secondary,error-1,white}");
+
+
+@theme {
+    --font-display: "Vazirmatn", sans-serif;
+
+    /* Brand colors */
+    --color-primary: #F0B90B;
+    --color-primary-hover: #E09B00;
+    --color-accent-tag: #2EB5FA;
+
+    /* Surfaces & Backgrounds */
+    --color-surface-bg-dark: #0E0E0E;
+    --color-surface-bg-light: #2C2E30;
+    --color-surface-card: #26282D;
+    --color-surface-element: #35383F;
+    --color-surface-border: #3F424B;
+
+    /* Typography */
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #9E9EA7;
+    --color-text-muted: #6C6D76;
+    --color-text-foreground: #2A2722;
+}

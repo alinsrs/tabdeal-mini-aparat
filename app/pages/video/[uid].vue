@@ -1,49 +1,43 @@
 <script setup lang="ts">
+import {useVideoDetails} from "~/composables/useVideoDetails";
 
-import image from "~/public/logo.webp";
+const route = useRoute();
+const router = useRouter();
+const uid = computed(() => route.params.uid as string);
+
+const handleBack = () => {
+  router.back()
+}
+
+const {video, isLoading, error} = useVideoDetails(uid);
+
+useSeoMeta({
+  title: () => video.value ? `${video.value.title} | صرافی تبدیل` : 'در حال بارگذاری ویدیو...',
+  ogTitle: () => video.value?.title,
+  description: () => video.value?.description || '',
+  ogDescription: () => video.value?.description || '',
+  ogImage: () => video.value?.thumbnail,
+});
 </script>
 
 <template>
-  <div class="w-full flex flex-col gap-6 max-w-360 p-4 rounded-lg shadow border border-surface-border">
-    <iframe class="w-full aspect-video rounded-2xl"></iframe>
-
-    <div class="w-full">
-      <h2 class="font-bold text-2xl text-text-primary">
-        عنوان ویدیو
-      </h2>
+  <main class="mx-auto w-full max-w-360 px-4 py-6" dir="rtl">
+    <div class="w-full flex items-center justify-end p-4">
+      <button type="button" class="w-50 text-text-primary cursor-pointer" @click="handleBack">
+        بازگشت به صفحه قبلی >>
+      </button>
+    </div>
+    <div v-if="isLoading" class="w-full flex flex-col gap-6 p-4 rounded-lg border border-surface-border animate-pulse">
+      <div class="w-full aspect-video rounded-2xl bg-surface-card"/>
+      <div class="h-8 w-3/4 rounded bg-surface-card"/>
+      <div class="h-14 w-full rounded bg-surface-card"/>
     </div>
 
-    <div class="w-full flex gap-2 items-center justify-start">
-      <img :src="image" class="w-10 aspect-square rounded-full object-cover" alt="jsj"/>
-      <div class="w-full flex flex-col gap-1">
-        <strong class="font-medium text-base text-text-muted">
-          نام کانال
-        </strong>
+    <VideoPlayer v-else-if="video" :video="video"/>
 
-        <strong class="font-medium text-base text-text-muted">
-          ۱۰۰۰ دنبال کننده
-        </strong>
-      </div>
+    <div v-if="error && !video" class="text-center py-20 text-primary mx-auto">
+      در دریافت اطلاعات این ویدیو مشکلی به‌وجود آمده است.
+      <p class="text-xs text-text-muted mt-2">{{ error }}</p>
     </div>
-
-    <div class="w-full flex gap-4 items-center justify-start">
-      <div class="flex gap-2 items-center justify-start">
-        <span class="text-text-muted text-base">
-          ۰ بازدید
-        </span>
-          -
-        <span class="text-text-muted text-base">
-          ۳ روز پیش
-        </span>
-      </div>
-
-      <div class="flex gap-3 items-center justify-start">
-        <span class="text-text-muted text-base"></span>
-      </div>
-    </div>
-  </div>
+  </main>
 </template>
-
-<style scoped>
-
-</style>
