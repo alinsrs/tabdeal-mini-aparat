@@ -14,7 +14,7 @@ const route = useRoute()
     ></div>
     <div class="w-full max-w-360 mx-auto flex flex-col gap-4 p-4">
       <NuxtLink to="/">
-        <img :src="logo" class="max-w-36 md:max-w-50" width="660" height="192" />
+        <img :src="logo" class="max-w-36 md:max-w-50" width="660" height="192" alt="tabdeal"/>
       </NuxtLink>
 
       <SearchInput v-if="route.path === '/' "/>
