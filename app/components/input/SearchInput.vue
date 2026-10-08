@@ -27,16 +27,31 @@ const handleSearch = () => {
       @submit.prevent="handleSearch"
       class="w-full p-4 rounded-lg bg-surface-card flex gap-4 shadow-2xl border border-surface-border"
   >
-    <input
-        v-model="query"
-        type="search"
-        placeholder="جستجو ویدیو..."
-        class="w-full text-text-primary p-2 bg-surface-element rounded focus:outline-none focus:ring-1 focus:ring-primary"
-        dir="rtl"
-    />
+    <div class="relative w-full">
+      <input
+          v-model="query"
+          type="search"
+          placeholder="جستجو ویدیو..."
+          class="w-full text-text-primary p-2 bg-surface-element rounded focus:outline-none focus:ring-1 focus:ring-primary
+               [&::-webkit-search-cancel-button]:appearance-none"
+          dir="rtl"
+      />
+
+      <button
+          v-if="query"
+          type="button"
+          aria-label="Clear search"
+          class="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer outline-none
+             text-primary hover:text-primary-hover"
+          @click="query = ''"
+      >
+        ×
+      </button>
+    </div>
     <button
         type="submit"
-        class="w-24 flex items-center justify-center gap-1 p-2 font-semibold text-sm text-text-foreground bg-primary hover:bg-primary-hover transition-colors rounded cursor-pointer"
+        class="w-24 flex items-center justify-center gap-1 p-2 font-semibold text-sm text-text-foreground bg-primary hover:bg-primary-hover
+         transition-colors rounded cursor-pointer"
     >
       <MdiIcon icon="mdiMagnify" size="20" />
       جستجو
